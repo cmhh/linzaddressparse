@@ -3,7 +3,6 @@ target/
 project/target
 .vscode
 .metals
-**/*.csv.gz
 model1.mdl
 model2.mdl
 .env
