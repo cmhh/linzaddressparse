@@ -1,14 +1,14 @@
 import sbt._
 
 object Dependencies {
-  /*
+  /**/
   lazy val dl4jcore = "org.deeplearning4j" % "deeplearning4j-core" % "1.0.0-M1.1"
   lazy val nd4j = "org.nd4j" % "nd4j-native-platform" % "1.0.0-M1.1"
-  */
   /**/
+  /*
   lazy val dl4jcore = "org.deeplearning4j" % "deeplearning4j-cuda-11.2" % "1.0.0-M1.1"
   lazy val nd4j = "org.nd4j" % "nd4j-cuda-11.2-platform" % "1.0.0-M1.1"
-  /**/
+  */
   lazy val pg = "org.postgresql" % "postgresql" % "42.5.3"
   lazy val slick = "com.typesafe.slick" %% "slick" % "3.4.1"
   lazy val hikaricp = "com.typesafe.slick" %% "slick-hikaricp" % "3.4.1"
