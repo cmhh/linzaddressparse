@@ -17,7 +17,7 @@ The library is provided as an [sbt](https://www.scala-sbt.org/) project.  A fat 
 sbt assembly
 ```
 
-The library uses [deeplearning4j](https://deeplearning4j.konduit.ai/) which is a relatively large library.  If we build a fat jar with dl4j included it will be relatively large--about 100MB.  Also, if training a model, things will run much faster using CUDA.  To do this, make sure the file `./project/Dependencies` looks as follows:
+The library uses [deeplearning4j](https://deeplearning4j.konduit.ai/) which is a relatively large library.  If we build a fat jar with dl4j included it will be relatively large--about 1.4GB.  Also, if training a model, things will run much faster using CUDA.  To do this, make sure the file `./project/Dependencies` looks as follows:
 
 ```scala
 import sbt._
