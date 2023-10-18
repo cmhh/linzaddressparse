@@ -18,7 +18,8 @@ class AddressDataSetIterator(
   pDropSuburb: Double = 0.1, 
   pDropTownCity: Double = 0.1,
   pDropPostcode: Double = 0.1, 
-  pTypo: Double = 0.02
+  pTypo: Double = 0.02,
+  pNoCommas: Double = 0.1,
 ) extends DataSetIterator {
   val asyncSupported: Boolean = false
   val batch: Int = batchSize
@@ -48,7 +49,7 @@ class AddressDataSetIterator(
 
     val addresses = 
       loop(n, Vector.empty)
-        .map(x => x.labelledChars(pDropUnit))
+        .map(x => x.labelledChars(pDropUnit, pNoCommas))
         
     val maxLength = addresses.map(x => x._1.size).max
     

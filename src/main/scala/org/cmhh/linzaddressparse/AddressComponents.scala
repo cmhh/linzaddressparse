@@ -79,7 +79,7 @@ case class AddressComponents(
    *
    * @return [[org.cmhh.linzaddressparse.Tagged]]
    */
-  def labelledChars(pDropUnit: Double = 0): Tagged = {
+  def labelledChars(pDropUnit: Double = 0, pNoCommas: Double = 0): Tagged = {
     val no: Tagged = addressNumber match {
       case None => Tagged.empty
       case Some(no) =>
@@ -184,11 +184,12 @@ case class AddressComponents(
     val withSuburb: Tagged = suburbLocality match {
       case None => withRoad
       case Some(sub) =>
+        val addComma = (1 - r.nextDouble()) <= pNoCommas
         withRoad ++ 
           Tagged(
-            s", ${sub}".toVector,
-            Vector("separator") ++ Vector("space") ++ 
-              utils.rep("suburb_locality", sub.size)
+            s"${if (addComma) "," else ""} ${sub}".toVector,
+            {if (addComma) Vector("separator") else Vector.empty} ++ 
+              Vector("space") ++ utils.rep("suburb_locality", sub.size)
           )
     }
 
@@ -198,27 +199,31 @@ case class AddressComponents(
           case None => 
             withSuburb
           case Some(pcode) =>
+            val addComma = (1 - r.nextDouble()) <= pNoCommas
             withSuburb ++ 
               Tagged(
-                s", $pcode".toVector,
-                Vector("separator") ++ Vector("space") ++ 
-                  utils.rep("postcode", pcode.size)
+                s"${if (addComma) "," else ""} $pcode".toVector,
+                {if (addComma) Vector("separator") else Vector.empty} ++ 
+                  Vector("space") ++ utils.rep("postcode", pcode.size)
               )
         }
       case Some(town) => 
         postcode match {
-          case None =>
+          case None => 
+            val addComma = (1 - r.nextDouble()) <= pNoCommas
             withSuburb ++ 
               Tagged(
-                s", $town".toVector,
-                Vector("separator") ++ Vector("space") ++ 
-                  utils.rep("town_city", town.size)
+                s"${if (addComma) "," else ""} $town".toVector,
+                {if (addComma) Vector("separator") else Vector.empty} ++ 
+                  Vector("space") ++ utils.rep("town_city", town.size)
               )
-          case Some(pcode) =>
+          case Some(pcode) =>  
+            val addComma = (1 - r.nextDouble()) <= pNoCommas
             withSuburb ++ 
               Tagged(
-                s", $town $pcode".toVector,
-                Vector("separator") ++ Vector("space") ++ 
+                s"${if (addComma) "," else ""} $town $pcode".toVector,
+                {if (addComma) Vector("separator") else Vector.empty} ++ 
+                  Vector("space") ++ 
                   utils.rep("town_city", town.size) ++ Vector("space") ++ 
                   utils.rep("postcode", pcode.size)
               )
